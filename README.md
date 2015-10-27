@@ -13,7 +13,7 @@ class MyAdmin < IntrospectiveAdmin::Base
   end
   
   register MyModel do
-    # add additional actions to the regular RESTful 
+    # add additional actions to the regular CRUD screens under the model's namespace. 
   end
 end
 ```
