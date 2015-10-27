@@ -1,4 +1,4 @@
-= IntrospectiveAdmin
+# IntrospectiveAdmin
 
 IntrospectiveAdmin is a Rails Plugin for DRYing up ActiveAdmin configurations by
 laying out simple defaults and including nested relations according to the models'
