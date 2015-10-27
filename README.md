@@ -6,6 +6,14 @@ accepts_nested_attributes_for :relation declarations.
 
 ## Documentation
 
+In your Gemfile:
+
+```
+gem 'introspective_admin', git: 'https://github.com/buermann/introspective_admin.git'
+```
+
+And bundle install.
+
 ```
 class MyAdmin < IntrospectiveAdmin::Base
   def self.exclude_params
