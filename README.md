@@ -21,7 +21,7 @@ class MyAdmin < IntrospectiveAdmin::Base
   end
   
   register MyModel do
-    # add additional actions to the regular CRUD screens under the model's namespace. 
+    # Add additional ActiveAdmin configuration options under the Admin::MyModelController namespace. 
   end
 end
 ```
