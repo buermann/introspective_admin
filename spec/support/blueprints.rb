@@ -42,22 +42,6 @@ Role.blueprint {
   ownable_type  { 'Company' }
 }
 
-Chat.blueprint {
-  creator { User.make }
-}
-ChatMessage.blueprint {
-  author = User.make
-  chat   = Chat.make(users: [author, User.make])
-  chat.save
-  chat { chat } 
-  author { author }
-  message { paragraph } 
-}
-ChatUser.blueprint {
-  chat { Chat.make }
-  user { User.make }
-}
-
 Locatable.blueprint {
   location { Location.make }
   locatable { Company.make }

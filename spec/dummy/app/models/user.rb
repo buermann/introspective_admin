@@ -19,13 +19,6 @@ class User < AbstractAdapter
   has_many :team_users
   has_many :teams, through: :team_users
 
-  has_many :own_chats, foreign_key: :creator_id, class_name: 'Chat'
-  has_many :chat_users
-  has_many :chats, through: :chat_users
-  has_many :chat_message_users
-  has_many :messages, ->{ where('chat_messages.created_at >= chat_users.created_at and (chat_users.departed_at IS NULL OR chat_messages.created_at <= chat_users.departed_at)') }, through: :chats 
-  include User::Chatter
-
   has_many :roles, dependent: :destroy, inverse_of: :user
   accepts_nested_attributes_for :roles, allow_destroy: true
   has_many :admin_companies, through: :roles, source: :ownable, source_type: Company

@@ -6,7 +6,6 @@ class AbstractAdapter < ActiveRecord::Base
       # The default formatting of validation errors sucks, this helps a little syntatically:
       super.titleize+":"
     end
-
   end
 
 end
