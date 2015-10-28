@@ -4,12 +4,15 @@ script:
 rvm:
   - 1.9
   - 2.2.3
+  - jruby-9.0.0.0
 env:
   matrix:
     - RAILS=3.2.22
     - RAILS=4.1.13
     - RAILS=4.2.4
     - RAILS=master
+  global:
+    - JRUBY_OPTS="-J-Xmx1024m --debug"
 matrix:
   fast_finish: true
   exclude:
