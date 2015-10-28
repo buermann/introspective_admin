@@ -33,9 +33,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'machinist'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rufus-mnemo'
-  # For compatibility of schema_validations with AR 4.2.1+
-  s.add_development_dependency "schema_plus", "2.0.0.pre12"
-  s.add_development_dependency "schema_validations"
   if RUBY_VERSION >= '2.0.0'
     s.add_development_dependency 'byebug'
   else 
