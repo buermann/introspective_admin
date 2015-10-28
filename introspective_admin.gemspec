@@ -24,9 +24,10 @@ Gem::Specification.new do |s|
 
   if RUBY_PLATFORM == 'java'
     s.add_development_dependency "jdbc-sqlite3"
+    s.add_development_dependency "activerecord-jdbc-adapter"
   else
     s.add_development_dependency "sqlite3"
-    if RUBY_VERSION < '2.0.0'
+    if RUBY_VERSION > '2.0.0'
       s.add_development_dependency 'byebug'
     end
   end
