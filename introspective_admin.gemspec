@@ -26,6 +26,9 @@ Gem::Specification.new do |s|
     s.add_development_dependency "jdbc-sqlite3"
   else
     s.add_development_dependency "sqlite3"
+    if RUBY_VERSION < '2.0.0'
+      s.add_development_dependency 'byebug'
+    end
   end
   s.add_development_dependency "rspec-rails", '>= 3.0'
   s.add_development_dependency 'devise'
@@ -33,11 +36,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'machinist'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rufus-mnemo'
-  if RUBY_VERSION >= '2.0.0'
-    s.add_development_dependency 'byebug'
-  else 
-    s.add_development_dependency 'debugger'
-  end
 
 end
 
