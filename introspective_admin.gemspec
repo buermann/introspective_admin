@@ -32,7 +32,11 @@ Gem::Specification.new do |s|
   # For compatibility of schema_validations with AR 4.2.1+
   s.add_development_dependency "schema_plus", "2.0.0.pre12"
   s.add_development_dependency "schema_validations"
-  s.add_development_dependency 'byebug'
+  if RUBY_VERSION >= '2.0.0'
+    s.add_development_dependency 'byebug'
+  else 
+    s.add_development_dependency 'debugger'
+  end
 
 end
 
