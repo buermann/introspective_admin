@@ -27,6 +27,7 @@ matrix:
     - env: RAILS=master
 notifications:
   email: 
+    recipients:
     - buermann@gmail.com
     on_success: change
     on_failure: always
