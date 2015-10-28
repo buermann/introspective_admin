@@ -6,7 +6,7 @@ script:
 rvm:
   - 1.9
   - 2.2.3
-  - jruby-9.0.0.0
+#  - jruby-9.0.0.0
 env:
   matrix:
     - RAILS=3.2.22
