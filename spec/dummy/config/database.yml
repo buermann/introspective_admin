@@ -2,7 +2,7 @@
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 
 default: &default
-  adapter: <%= RUBY_PLATFORM == 'java' ? "jdbcsqlite3" : "sqlite3" %>
+  adapter: sqlite3
   database: ":memory:"
   
 
