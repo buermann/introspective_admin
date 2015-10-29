@@ -9,7 +9,7 @@ accepts_nested_attributes_for :relation declarations.
 In your Gemfile:
 
 ```
-gem 'introspective_admin', git: 'https://github.com/buermann/introspective_admin.git'
+gem 'introspective_admin'
 ```
 
 And bundle install.
