@@ -12,7 +12,7 @@ In your Gemfile:
 gem 'introspective_admin'
 ```
 
-And bundle install. 
+And bundle install.  In app/admin/my_admin.rb:
 
 ```
 class MyAdmin < IntrospectiveAdmin::Base
@@ -21,16 +21,14 @@ class MyAdmin < IntrospectiveAdmin::Base
   end
   
   register MyModel do
-    # Registering MyModel will set up the index, show, and form configurations for every
-    # attribute and nested association on the model excluding those in MyAdmin.exclude_params,
-    # with links to associated records (if they have ActiveAdmin screens) and permitting
-    # every attribute on the model.
-
-    # It yields the ActiveAdmin DSL context back, allowing further configuration to be added
-    # here, just as you would normally, to the Admin::MyModelController namespace.
+    # It yields the ActiveAdmin DSL context back, allowing further configuration to
+    # be added here, just as you would normally, to the Admin::MyModelController
+    # namespace.
   end
 end
 ```
+
+Registering MyModel will set up the index, show, and form configurations for every attribute and nested association on the model excluding those in MyAdmin.exclude_params, with links to associated records (if they have ActiveAdmin screens) and permitting every attribute on the model. 
 
 Customizing select box options for associations is done by adding an 
 "options_for_X" class method on the administrated model:
@@ -71,7 +69,6 @@ class MyModel < ActiveRecord::Base
 
 end
 ```
-
 
 ## Dependencies
 
