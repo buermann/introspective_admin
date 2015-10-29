@@ -41,6 +41,32 @@ class MyModel < ActiveRecord::Base
 end
 ```
 
+IntrospectiveAdmin will detect nested polymorphic relations and attempt to handle
+them using virutal attributes that you must add to the model instance, plus a class 
+method for the select box options, using a shared delimiter string for the compound ID.
+E.g. here we use a hyphen: 
+
+```
+class MyModel < ActiveRecord::Base
+  belongs_to :poly_model, polymorphic: true
+  accepts_nested_attributes_for :poly_model, :allow_destroy => true
+
+  def self.options_for_poly_model
+    PolyModel.all.map { |i| [ "#{i.class}: #{i.name}", "#{i.class}-#{i.id}"] }
+  end
+
+  def poly_model_assign
+    poly_model.present? ? "#{poly_model_type}-#{poly_model_id}" : nil
+  end
+
+  def poly_model_assign=(value)
+    self.poly_model_type,self.poly_model_id = value.split('-')
+  end
+
+end
+```
+
+
 ## Dependencies
 
 Tool                  | Description
