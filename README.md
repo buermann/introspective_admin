@@ -2,7 +2,7 @@
 
 IntrospectiveAdmin is a Rails Plugin for DRYing up ActiveAdmin configurations by
 laying out simple defaults and including nested relations according to the models'
-accepts_nested_attributes_for :relation declarations.
+accepts_nested_attributes_for :relation declarations. 
 
 ## Documentation
 
@@ -12,7 +12,7 @@ In your Gemfile:
 gem 'introspective_admin'
 ```
 
-And bundle install.
+And bundle install. 
 
 ```
 class MyAdmin < IntrospectiveAdmin::Base
@@ -21,7 +21,13 @@ class MyAdmin < IntrospectiveAdmin::Base
   end
   
   register MyModel do
-    # Add additional ActiveAdmin configuration options under the Admin::MyModelController namespace. 
+    # Registering MyModel will set up the index, show, and form configurations for every
+    # attribute and nested association on the model excluding those in MyAdmin.exclude_params,
+    # with links to associated records (if they have ActiveAdmin screens) and permitting
+    # every attribute on the model.
+
+    # It yields the ActiveAdmin DSL context back, allowing further configuration to be added
+    # here, just as you would normally, to the Admin::MyModelController namespace.
   end
 end
 ```
