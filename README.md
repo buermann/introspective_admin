@@ -44,7 +44,7 @@ class MyAdmin < IntrospectiveAdmin::Base
 end
 ```
 
-Registering MyModel will set up the index, show, and form configurations for every attribute and nested association on the model excluding those in MyAdmin.exclude_params, with links to associated records (if they have ActiveAdmin screens), eager loading of nested associations, and permitted every non-excluded attribute on the model. 
+Registering MyModel will set up the index, show, and form configurations for every attribute and nested association on the model excluding those in MyAdmin.exclude_params, with links to associated records (if they have ActiveAdmin screens), eager loading of nested associations, and permitting every non-excluded attribute on the model. 
 
 Customizing select box options for associations is done by adding an 
 "options_for_X" class method on the administrated model:
