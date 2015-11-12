@@ -1,5 +1,21 @@
 # IntrospectiveAdmin
 
+[![Gem Version][GV img]][Gem Version]
+[![Build Status][BS img]][Build Status]
+[![Dependency Status][DS img]][Dependency Status]
+[![Coverage Status][CS img]][Coverage Status]
+
+[Gem Version]: https://rubygems.org/gems/introspective_admin
+[Build Status]: https://travis-ci.org/buermann/introspective_admin
+[travis pull requests]: https://travis-ci.org/buermann/introspective_admin/pull_requests
+[Dependency Status]: https://gemnasium.com/buermann/introspective_admin
+[Coverage Status]: https://coveralls.io/r/buermann/introspective_admin
+
+[GV img]: https://badge.fury.io/rb/introspective_admin.png
+[BS img]: https://travis-ci.org/buermann/introspective_admin.png
+[DS img]: https://gemnasium.com/buermann/introspective_admin.png
+[CS img]: https://coveralls.io/repos/buermann/introspective_admin/badge.png?branch=master
+
 IntrospectiveAdmin is a Rails Plugin for DRYing up ActiveAdmin configurations by
 laying out simple defaults and including nested relations according to the models'
 accepts_nested_attributes_for :relation declarations. 
