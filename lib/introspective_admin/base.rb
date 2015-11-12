@@ -71,7 +71,14 @@ module IntrospectiveAdmin
           [assoc, options]
         }]
 
+
         ActiveAdmin.register model do 
+          controller do
+            def scoped_collection
+              super.includes super.nested_attributes_options.keys
+            end
+          end
+
           index do 
             cols = model.columns.map(&:name)-klass.exclude_params
             cols.each_with_index do |c,i|
