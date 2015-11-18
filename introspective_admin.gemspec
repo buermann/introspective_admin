@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails'
 
   if RUBY_PLATFORM == 'java'
-    s.add_development_dependency "jdbc-sqlite3"
+    s.add_development_dependency "activerecord-jdbcsqlite3-adapter"
   else
     s.add_development_dependency "sqlite3"
     if RUBY_VERSION > '2.0.0'
