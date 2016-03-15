@@ -24,6 +24,10 @@ module IntrospectiveAdmin
         [] # do not display the field in the index page and forms.
       end
 
+      def include_virtual_attributes 
+        [] #
+      end
+
       def polymorphic?(model,column)
         (model.reflections[column.sub(/_id$/,'')].try(:options)||{})[:polymorphic]
       end
@@ -31,13 +35,13 @@ module IntrospectiveAdmin
       def column_list(model)
         model.columns.map {|c|
           c.name.sub(/(_type|_id)$/,'')
-        }.uniq-['created_at','updated_at']-exclude_params
+        }.uniq-['created_at','updated_at']-exclude_params+include_virtual_attributes
       end
 
       def params_list(model)
         model.columns.map {|c|
           polymorphic?(model,c.name) ? c.name.sub(/_id$/,'')+"_assign" : c.name
-        }
+        }+include_virtual_attributes
       end
 
       def link_record(record)
@@ -58,7 +62,9 @@ module IntrospectiveAdmin
 
         klass         = self
         model_name    = model.to_s.underscore
-        nested_config = Hash[model.nested_attributes_options.map {|assoc,options|
+        nested_config = Hash[model.nested_attributes_options.reject {|name,o|
+          klass.exclude_params.include?("#{name}_attributes")
+        }.map {|assoc,options|
           reflection       = model.reflections[assoc.to_s]
           reflection_class = reflection.class_name.constantize
           # merge the options of the nested attribute and relationship declarations  
@@ -70,7 +76,6 @@ module IntrospectiveAdmin
           options[:polymorphic_reference] = reflection.options[:as].to_s
           [assoc, options]
         }]
-
 
         ActiveAdmin.register model do 
           controller do

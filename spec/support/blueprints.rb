@@ -32,7 +32,7 @@ User.blueprint do
   email       { "test-"+syllable+'@springshot.com' }
   first_name  { word(4) }
   last_name   { word(5) }
-  password    { 'abc123' }
+  password    { 'abcd1234' }
   confirmed_at { Time.now }
 end
 
