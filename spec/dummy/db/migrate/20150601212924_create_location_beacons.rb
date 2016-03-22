@@ -7,6 +7,7 @@ class CreateLocationBeacons < ActiveRecord::Migration
       t.string  :uuid, null: false, limit: 32
       t.integer :major, null: false 
       t.integer :minor, null: false
+      t.integer :last_known_battery_level
 
       t.timestamps null: false
     end

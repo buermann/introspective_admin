@@ -19,7 +19,7 @@ GIT
 PATH
   remote: .
   specs:
-    introspective_admin (0.0.2)
+    introspective_admin (0.0.3)
       sass-rails
 
 GEM

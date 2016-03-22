@@ -56,7 +56,7 @@ module IntrospectiveAdmin
         end
       end
 
-      def register(model)
+      def register(model, &block)
         # Defining activeadmin pages will break pending migrations:
         begin ActiveRecord::Migration.check_pending! rescue return end 
 
@@ -78,6 +78,8 @@ module IntrospectiveAdmin
         }]
 
         ActiveAdmin.register model do 
+          instance_eval &block if block_given? # Evalutate the passed black for overrides to the defaults
+
           controller do
             def scoped_collection
               super.includes super.nested_attributes_options.keys
@@ -85,6 +87,7 @@ module IntrospectiveAdmin
           end
 
           index do 
+            selectable_column
             cols = model.columns.map(&:name)-klass.exclude_params
             cols.each_with_index do |c,i|
               column c
@@ -172,8 +175,6 @@ module IntrospectiveAdmin
               end
             end
           end
-
-          yield # Yield the DSL to the child class for further customization
 
         end
       end

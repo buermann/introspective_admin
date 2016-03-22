@@ -13,4 +13,7 @@ class LocationBeacon < AbstractAdapter
     self.mac_address = (mac_address||'').gsub(/[^0-9a-fA-F]+/,'').upcase
   end
 
+  scope :low_battery, -> { where("last_known_battery_level < 20") } 
+
+
 end

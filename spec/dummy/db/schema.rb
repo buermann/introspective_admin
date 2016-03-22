@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 20150909225019) do
     t.string   "uuid",        limit: 32, null: false
     t.integer  "major",                  null: false
     t.integer  "minor",                  null: false
+    t.integer  "last_known_battery_level"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

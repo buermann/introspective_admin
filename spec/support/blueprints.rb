@@ -52,8 +52,8 @@ Location.blueprint {
   gps      { LocationGps.new(lat: 37.615223, lng: -122.389977 ) }
 }
 LocationBeacon.blueprint {
-  location  { Location.make }
-  company   { Company.make }
+  location  { Location.make! }
+  company   { Company.make! }
   mac_address { SecureRandom.hex(6) }
   # e.g. 2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6
   uuid { SecureRandom.hex(4)+'-'+SecureRandom.hex(2)+'-'+SecureRandom.hex(2)+'-'+SecureRandom.hex(2)+'-'+SecureRandom.hex(6) }
