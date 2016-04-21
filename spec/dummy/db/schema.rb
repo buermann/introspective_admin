@@ -112,14 +112,14 @@ ActiveRecord::Schema.define(version: 20150909225019) do
 
   create_table "location_beacons", force: :cascade do |t|
     t.integer  "location_id"
-    t.integer  "company_id",             null: false
-    t.string   "mac_address", limit: 12
-    t.string   "uuid",        limit: 32, null: false
-    t.integer  "major",                  null: false
-    t.integer  "minor",                  null: false
+    t.integer  "company_id",                          null: false
+    t.string   "mac_address",              limit: 12
+    t.string   "uuid",                     limit: 32, null: false
+    t.integer  "major",                               null: false
+    t.integer  "minor",                               null: false
     t.integer  "last_known_battery_level"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "location_beacons", ["company_id", "uuid", "major", "minor"], name: "index_location_beacons_unique_company_identifier", unique: true
@@ -139,12 +139,14 @@ ActiveRecord::Schema.define(version: 20150909225019) do
     t.string   "name",               null: false
     t.string   "kind"
     t.integer  "parent_location_id"
+    t.integer  "unreflected_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
 
   add_index "locations", ["parent_location_id", "kind", "name"], name: "index_locations_on_parent_location_id_and_kind_and_name", unique: true
   add_index "locations", ["parent_location_id"], name: "index_locations_on_parent_location_id"
+  add_index "locations", ["unreflected_id"], name: "index_locations_on_unreflected_id"
 
   create_table "project_jobs", force: :cascade do |t|
     t.integer  "project_id", null: false

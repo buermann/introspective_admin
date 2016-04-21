@@ -4,6 +4,7 @@ class CreateLocations < ActiveRecord::Migration
       t.string :name, null: false
       t.string :kind
       t.integer :parent_location_id, index: true, foreign_key: false
+      t.integer :unreflected_id, index: true, foreign_key: false
 
       t.timestamps null: false
     end

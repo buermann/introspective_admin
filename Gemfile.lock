@@ -19,7 +19,7 @@ GIT
 PATH
   remote: .
   specs:
-    introspective_admin (0.0.3)
+    introspective_admin (0.0.4)
       sass-rails
 
 GEM
@@ -68,6 +68,7 @@ GEM
       sass (~> 3.4)
       thor (~> 0.19)
     builder (3.2.2)
+    byebug (8.2.2)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -211,6 +212,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  byebug
   devise
   devise-async
   introspective_admin!

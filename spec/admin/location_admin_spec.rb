@@ -30,6 +30,7 @@ RSpec.describe Admin::LocationsController, :type => :controller do
     # will fail until https://github.com/activeadmin/activeadmin/pull/4010 is merged
     it "renders the form for a new record" do
       get :new
+      response.body.should =~ /location\[unreflected_id\]/
       response.status.should == 200 
     end
   end

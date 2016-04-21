@@ -34,7 +34,8 @@ module IntrospectiveAdmin
 
       def column_list(model)
         model.columns.map {|c|
-          c.name.sub(/(_type|_id)$/,'')
+          ref_name = c.name.sub(/(_type|_id)$/,'')
+          model.reflections[ref_name] ? ref_name : c.name
         }.uniq-['created_at','updated_at']-exclude_params+include_virtual_attributes
       end
 
