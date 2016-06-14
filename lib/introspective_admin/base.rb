@@ -137,6 +137,7 @@ module IntrospectiveAdmin
           }]]
 
           form do |f|
+            f.semantic_errors *f.object.errors.keys
             f.actions
 
             klass.column_list(model, klass.include_virtual_attributes).each do |column|
