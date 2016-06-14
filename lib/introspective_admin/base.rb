@@ -32,17 +32,17 @@ module IntrospectiveAdmin
         (model.reflections[column.sub(/_id$/,'')].try(:options)||{})[:polymorphic]
       end
 
-      def column_list(model)
+      def column_list(model, extras=[])
         model.columns.map {|c|
           ref_name = c.name.sub(/(_type|_id)$/,'')
           model.reflections[ref_name] ? ref_name : c.name
-        }.uniq-['created_at','updated_at']-exclude_params+include_virtual_attributes
+        }.uniq-['created_at','updated_at']-exclude_params+extras
       end
 
-      def params_list(model)
+      def params_list(model, extras=[])
         model.columns.map {|c|
           polymorphic?(model,c.name) ? c.name.sub(/_id$/,'')+"_assign" : c.name
-        }+include_virtual_attributes
+        }+extras 
       end
 
       def link_record(record)
@@ -132,14 +132,14 @@ module IntrospectiveAdmin
             end
           end
 
-          permit_params klass.params_list(model) + [Hash[nested_config.map{|assoc,o|
+          permit_params klass.params_list(model, klass.include_virtual_attributes) + [Hash[nested_config.map{|assoc,o|
             ["#{assoc}_attributes", o[:params]+[(o[:allow_destroy] ? :_destroy : '')] ]
           }]]
 
           form do |f|
             f.actions
 
-            klass.column_list(model).each do |column|
+            klass.column_list(model, klass.include_virtual_attributes).each do |column|
               if column == model.primary_key
               elsif klass.polymorphic?(model,column)
                 f.input column+"_assign", collection: model.send("#{column}_assign_options")
@@ -161,7 +161,7 @@ module IntrospectiveAdmin
                     if c == model_name || c == options[:polymorphic_reference]
                       # the join to the parent is implicit
                     elsif klass.polymorphic?(aclass,c) 
-                      r.input c, collection: aclass.send("#{c}_assign_options")
+                      r.input "#{c}_assign", collection: aclass.send("#{c}_assign_options")
                     elsif aclass.reflections[c] && aclass.respond_to?("options_for_#{c}")
                       # If the class has an options_for_<column> method defined use that
                       # rather than the default behavior, pass the instance for scoping,
