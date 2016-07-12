@@ -45,11 +45,11 @@ module IntrospectiveAdmin
         }+extras 
       end
 
-      def link_record(record)
+      def link_record(dsl, record)
         link_text = record.try(:name) || record.try(:title) || record.class.to_s
-        link_href = begin eval("admin_#{record.class.name.underscore}_path(#{record.id})") rescue false end
+        link_href = begin dsl.send("admin_#{record.class.name.underscore}_path", record.id) rescue false end
         if link_href
-          link_to link_text, link_href
+          dsl.link_to link_text, link_href
         elsif link_text
           link_text
         else
@@ -91,7 +91,14 @@ module IntrospectiveAdmin
             selectable_column
             cols = model.columns.map(&:name)-klass.exclude_params
             cols.each_with_index do |c,i|
-              column c
+              reflection = model.reflections.detect {|k,v| v.foreign_key == c }
+              if reflection
+                column c do |o|
+                  klass.link_record(self,o.send(reflection.first)) 
+                end
+              else
+                column c
+              end
             end
             actions
           end
@@ -102,7 +109,15 @@ module IntrospectiveAdmin
             attributes_table do
               model.columns.each do |c|
                 next if (c.name =~ /password/)
-                row c.name
+                reflection = model.reflections.detect {|k,v| v.foreign_key == c.name }
+                if reflection
+                  row c.name do |o|
+                    klass.link_record(self,instance.send(reflection.first)) 
+                  end
+                else
+                  row c.name
+                end
+
               end
 
               nested_config.each do |assoc,options|
@@ -111,7 +126,7 @@ module IntrospectiveAdmin
                     options[:columns].each do |c|
                       if options[:class].reflections[c]
                         column( c ) do |r|
-                          klass.link_record(r.send(c)) if r
+                          klass.link_record(self,r.send(c)) if r
                         end
                       else 
                         column c
