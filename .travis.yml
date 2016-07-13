@@ -1,4 +1,6 @@
 language: ruby
+before_install:
+  - gem install bundle
 install: bundle install --jobs=1 --retry=1
 script:
   - bundle install
