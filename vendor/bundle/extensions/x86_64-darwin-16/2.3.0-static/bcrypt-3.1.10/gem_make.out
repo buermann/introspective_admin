@@ -1,0 +1,19 @@
+current directory: /Users/buermann/Dropbox/contrib/introspective_admin/vendor/bundle/gems/bcrypt-3.1.10/ext/mri
+/Users/buermann/.rbenv/versions/2.3.3/bin/ruby -r ./siteconf20180925-58961-4o2lku.rb extconf.rb
+creating Makefile
+
+current directory: /Users/buermann/Dropbox/contrib/introspective_admin/vendor/bundle/gems/bcrypt-3.1.10/ext/mri
+make "DESTDIR=" clean
+
+current directory: /Users/buermann/Dropbox/contrib/introspective_admin/vendor/bundle/gems/bcrypt-3.1.10/ext/mri
+make "DESTDIR="
+compiling crypt_gensalt.c
+compiling crypt.c
+compiling bcrypt_ext.c
+compiling wrapper.c
+compiling crypt_blowfish.c
+linking shared-object bcrypt_ext.bundle
+
+current directory: /Users/buermann/Dropbox/contrib/introspective_admin/vendor/bundle/gems/bcrypt-3.1.10/ext/mri
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bcrypt_ext.bundle ./.gem.20180925-58961-1vs1oxv

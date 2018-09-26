@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
       #s.add_development_dependency 'byebug'
     end
   end
-  s.add_development_dependency "rspec-rails", '>= 3.0'
+  s.add_development_dependency "rspec-rails", '>= 3.0', '<5.0'
   s.add_development_dependency 'devise'
   s.add_development_dependency 'devise-async'
   s.add_development_dependency 'machinist'
