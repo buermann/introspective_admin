@@ -20,22 +20,25 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 1.9.3'
 
+  s.add_dependency 'rails' 
+  s.add_dependency 'activeadmin', '~> 1.0' 
   s.add_dependency 'sass-rails'
 
   if RUBY_PLATFORM == 'java'
     s.add_development_dependency "activerecord-jdbcsqlite3-adapter"
   else
-    s.add_development_dependency "sqlite3"
+    s.add_development_dependency "sqlite3", '< 1.4'
     if RUBY_VERSION > '2.0.0'
       #s.add_development_dependency 'byebug'
     end
   end
-  s.add_development_dependency "rspec-rails", '>= 3.0', '<5.0'
+  s.add_development_dependency "rspec-rails"
   s.add_development_dependency 'devise'
-  s.add_development_dependency 'devise-async'
+  s.add_development_dependency 'devise-async', '~> 1.0.0'
   s.add_development_dependency 'machinist'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rufus-mnemo'
+  s.add_development_dependency 'rails-controller-testing'
 
 end
 

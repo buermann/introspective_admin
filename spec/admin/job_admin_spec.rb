@@ -21,7 +21,7 @@ RSpec.describe Admin::JobsController, :type => :controller do
   describe "SHOW record" do 
     it "finds the record" do
       r = Job.make!
-      get :show, id: r.id
+      get :show, params: { id: r.id }
       response.status.should == 200 
     end
   end
@@ -36,7 +36,7 @@ RSpec.describe Admin::JobsController, :type => :controller do
   describe "CREATE record" do 
     it "creates the record" do
       r = Job.make
-      post :create, job: r.attributes
+      post :create, params: { job: r.attributes }
       response.should redirect_to action: :show, id: Job.last.id
       Job.last.title.should == r.title
     end
@@ -45,7 +45,7 @@ RSpec.describe Admin::JobsController, :type => :controller do
   describe "EDIT record" do 
     it "renders the edit form for an existing record" do 
       r = Job.make!
-      get :edit, id: r.id
+      get :edit, params: { id: r.id }
       response.status.should == 200 
     end
   end
@@ -53,7 +53,7 @@ RSpec.describe Admin::JobsController, :type => :controller do
   describe "UPDATE record" do 
     it "updates the record" do
       r = Job.make!
-      put :update, id: r.id, job: { title: "New Name" } 
+      put :update, params: { id: r.id, job: { title: "New Name" }  }
       response.should redirect_to action: :show, id: r.id
       Job.find(r.id).title.should == "New Name"
     end

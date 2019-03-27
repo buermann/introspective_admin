@@ -20,7 +20,7 @@ RSpec.describe Admin::ProjectsController, :type => :controller do
   describe "SHOW record" do 
     it "finds the record" do
       r = Project.make!
-      get :show, id: r.id
+      get :show, params: { id: r.id }
       response.status.should == 200 
     end
   end
@@ -35,7 +35,7 @@ RSpec.describe Admin::ProjectsController, :type => :controller do
   describe "CREATE record" do 
     it "creates the record" do
       r = Project.make
-      post :create, project: r.attributes
+      post :create, params: { project: r.attributes }
       response.should redirect_to action: :show, id: Project.last.id
       Project.last.name.should == r.name
     end
@@ -43,7 +43,7 @@ RSpec.describe Admin::ProjectsController, :type => :controller do
     it "the inverse_of declaration allows a new project to be created with a project_job" do
       j = Job.make!
       r = Project.make
-      post :create, project: r.attributes.merge({project_jobs_attributes:{'0'=>{job_id: j.id}}}) 
+      post :create, params: { project: r.attributes.merge({project_jobs_attributes:{'0'=>{job_id: j.id}}})  }
       p = Project.last
       p.name.should == r.name
       p.project_jobs.size.should == 1
@@ -55,7 +55,7 @@ RSpec.describe Admin::ProjectsController, :type => :controller do
   describe "EDIT record" do 
     it "renders the edit form for an existing record" do 
       r = Project.make!
-      get :edit, id: r.id
+      get :edit, params: { id: r.id }
       response.status.should == 200 
     end
   end
@@ -63,7 +63,7 @@ RSpec.describe Admin::ProjectsController, :type => :controller do
   describe "UPDATE record" do 
     it "updates the record" do
       r = Project.make!
-      put :update, id: r.id, project: { name: "New Name" } 
+      put :update, params: { id: r.id, project: { name: "New Name" }  }
       response.should redirect_to action: :show, id: r.id
       Project.find(r.id).name.should == "New Name"
     end

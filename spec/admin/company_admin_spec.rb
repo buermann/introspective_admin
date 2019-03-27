@@ -21,7 +21,7 @@ RSpec.describe Admin::CompaniesController, :type => :controller do
   describe "SHOW record" do 
     it "finds the record" do
       c = Company.make!
-      get :show, id: c.id
+      get :show, params: { id: c.id }
       response.status.should == 200 
     end
   end
@@ -36,7 +36,7 @@ RSpec.describe Admin::CompaniesController, :type => :controller do
   describe "CREATE record" do 
     it "creates the record" do
       c = Company.make
-      post :create, company: c.attributes
+      post :create, params: { company: c.attributes }
       response.should redirect_to action: :show, id: Company.last.id
       Company.last.name.should == c.name
     end
@@ -44,9 +44,9 @@ RSpec.describe Admin::CompaniesController, :type => :controller do
     it "creates a record with an admin" do
       u = User.make!
       c = Company.make
-      post :create, company: c.attributes.merge({
+      post :create, params: { company: c.attributes.merge({
         roles_attributes: {'0'=>{ user_id: u.id }}
-      })
+      }) }
       response.should redirect_to action: :show, id: Company.last.id
       Company.last.admins.include?(u).should be_truthy
     end
@@ -56,7 +56,7 @@ RSpec.describe Admin::CompaniesController, :type => :controller do
   describe "EDIT record" do 
     it "renders the edit form for an existing record" do 
       r = Company.make!
-      get :edit, id: r.id
+      get :edit, params: { id: r.id }
       response.status.should == 200 
     end
   end
@@ -64,7 +64,7 @@ RSpec.describe Admin::CompaniesController, :type => :controller do
   describe "UPDATE record" do 
     it "updates the record" do
       c = Company.make!
-      put :update, id: c.id, company: { name: "New Name" } 
+      put :update, params: { id: c.id, company: { name: "New Name" }  }
       response.should redirect_to action: :show, id: c.id
       Company.find(c.id).name.should == "New Name"
     end

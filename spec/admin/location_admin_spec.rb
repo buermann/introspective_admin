@@ -21,7 +21,7 @@ RSpec.describe Admin::LocationsController, :type => :controller do
   describe "SHOW record" do 
     it "finds the record" do
       c = Location.make!
-      get :show, id: c.id
+      get :show, params: { id: c.id }
       response.status.should == 200 
     end
   end
@@ -39,7 +39,7 @@ RSpec.describe Admin::LocationsController, :type => :controller do
     it "creates the record" do
       c = Location.make
       gps = LocationGps.make
-      post :create, location: c.attributes.merge(gps_attributes: gps.attributes) 
+      post :create, params: { location: c.attributes.merge(gps_attributes: gps.attributes)  }
       response.should redirect_to action: :show, id: Location.last.id
       Location.last.name.should == c.name
       Location.last.gps.lat.round(10).should == gps.lat.round(10)
@@ -50,7 +50,7 @@ RSpec.describe Admin::LocationsController, :type => :controller do
   describe "EDIT record" do 
     it "renders the edit form for an existing record" do 
       r = Location.make!
-      get :edit, id: r.id
+      get :edit, params: { id: r.id }
       response.status.should == 200 
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe Admin::LocationsController, :type => :controller do
   describe "UPDATE record" do 
     it "updates the record" do
       r = Location.make!
-      put :update, id: r.id, location: { name: "New Name" } 
+      put :update, params: { id: r.id, location: { name: "New Name" }  }
       response.should redirect_to action: :show, id: r.id
       Location.find(r.id).name.should == "New Name"
     end

@@ -64,7 +64,6 @@ module IntrospectiveAdmin
         klass         = self
         model_name    = model.to_s.underscore
         nested_config = Hash[model.nested_attributes_options.reject {|name,o|
-          p name
           klass.exclude_params.include?("#{name}_attributes")
         }.map {|assoc,options|
           reflection       = model.reflections[assoc.to_s]

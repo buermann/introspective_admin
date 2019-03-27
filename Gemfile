@@ -2,5 +2,5 @@
 source "https://rubygems.org"
 
 gemspec
-gem 'activeadmin', github: 'activeadmin'
 gem 'coveralls', require: false
+gem 'rails-controller-testing', require: true

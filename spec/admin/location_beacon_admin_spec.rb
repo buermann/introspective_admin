@@ -22,7 +22,7 @@ RSpec.describe Admin::LocationBeaconsController, :type => :controller do
     it "scopes location beacons by low battery level" do 
       c = LocationBeacon.make!(last_known_battery_level: 50)
       d = LocationBeacon.make!(last_known_battery_level: 4)
-      get :index, { scope: 'low_battery' } 
+      get :index, params: { scope: 'low_battery' } 
       response.status.should == 200 
       assigns(:location_beacons).include?(c).should == false
       assigns(:location_beacons).include?(d).should == true
@@ -32,7 +32,7 @@ RSpec.describe Admin::LocationBeaconsController, :type => :controller do
   describe "SHOW record" do 
     it "finds the record" do
       c = LocationBeacon.make!
-      get :show, id: c.id
+      get :show, params: { id: c.id }
       response.status.should == 200 
     end
   end
@@ -48,7 +48,7 @@ RSpec.describe Admin::LocationBeaconsController, :type => :controller do
   describe "CREATE record" do 
     it "creates the record" do
       c = LocationBeacon.make
-      post :create, location_beacon: c.attributes
+      post :create, params: { location_beacon: c.attributes }
       response.should redirect_to action: :show, id: LocationBeacon.last.id
       LocationBeacon.last.mac_address.should =~ /#{c.mac_address}/i
     end
@@ -57,7 +57,7 @@ RSpec.describe Admin::LocationBeaconsController, :type => :controller do
   describe "EDIT record" do 
     it "renders the edit form for an existing record" do 
       r = LocationBeacon.make!
-      get :edit, id: r.id
+      get :edit, params: { id: r.id }
       response.status.should == 200 
     end
   end
@@ -65,7 +65,7 @@ RSpec.describe Admin::LocationBeaconsController, :type => :controller do
   describe "UPDATE record" do 
     it "updates the record" do
       r = LocationBeacon.make!
-      put :update, id: r.id, location_beacon: { last_known_battery_level: 30 } 
+      put :update, params: { id: r.id, location_beacon: { last_known_battery_level: 30 }  }
       response.should redirect_to action: :show, id: r.id
       LocationBeacon.find(r.id).last_known_battery_level.should == 30
     end

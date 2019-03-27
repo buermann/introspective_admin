@@ -12,6 +12,8 @@ Dummy::Application.configure do
   # preloads Rails for running tests, you may have to set it to true.
   config.eager_load = false
 
+  config.assets.unknown_asset_fallback = true
+
   # Configure static file server for tests with Cache-Control for performance.
   config.serve_static_files   = true
   config.static_cache_control = 'public, max-age=3600'
@@ -26,11 +28,13 @@ Dummy::Application.configure do
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
 
+  config.assets.precompile += %w[active_admin.css active_admin.js]
+
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
-  config.action_mailer.perform_deliveries = false
-  config.action_mailer.delivery_method    = :test
+  #config.action_mailer.perform_deliveries = false
+  #config.action_mailer.delivery_method    = :test
 
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
