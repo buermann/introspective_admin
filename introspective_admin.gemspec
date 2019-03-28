@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency 'devise'
   s.add_development_dependency 'devise-async', '~> 1.0.0'
-  s.add_development_dependency 'machinist'
+  s.add_development_dependency 'machinist_redux'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rufus-mnemo'
   s.add_development_dependency 'rails-controller-testing'
