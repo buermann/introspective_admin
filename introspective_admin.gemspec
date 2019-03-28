@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'activeadmin', '~> 1.0' 
   s.add_dependency 'sass-rails'
 
+
   if RUBY_PLATFORM == 'java'
     s.add_development_dependency "activerecord-jdbcsqlite3-adapter"
   else
@@ -39,6 +40,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rufus-mnemo'
   s.add_development_dependency 'rails-controller-testing'
+  s.add_development_dependency 'sprockets-rails', '<3.2.0'
 
 end
 
