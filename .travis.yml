@@ -19,6 +19,9 @@ rvm:
 
 matrix:
   allow_failures:
+    - rvm: rbx-3.107
+    - rvm: jruby-9.0.4.0
+    - rvm: jruby-9.2.6.0
     - rvm: ruby-head
     - rvm: jruby-head
 
@@ -27,6 +30,8 @@ env:
     - RAILS=4.2.0
     - RAILS=4.2.11
     - RAILS=5.0.0
+    - RAILS=5.1.0
+    - RAILS=5.2.0
     - RAILS=master
   global:
     - JRUBY_OPTS="-J-Xmx1024m --debug"
