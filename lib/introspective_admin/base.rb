@@ -1,5 +1,5 @@
 module IntrospectiveAdmin
-  class Base 
+  class Base
     # Generate an active admin interface by introspecting on the models.
 
     # For polymorphic associations set up virtual 'assign' attributes on the model like so:
@@ -20,11 +20,11 @@ module IntrospectiveAdmin
 
     class << self
 
-      def exclude_params 
+      def exclude_params
         [] # do not display the field in the index page and forms.
       end
 
-      def include_virtual_attributes 
+      def include_virtual_attributes
         [] #
       end
 
@@ -42,7 +42,7 @@ module IntrospectiveAdmin
       def params_list(model, extras=[])
         model.columns.map {|c|
           polymorphic?(model,c.name) ? c.name.sub(/_id$/,'')+"_assign" : c.name
-        }+extras 
+        }+extras
       end
 
       def link_record(dsl, record)
@@ -59,7 +59,7 @@ module IntrospectiveAdmin
 
       def register(model, &block)
         # Defining activeadmin pages will break pending migrations:
-        begin ActiveRecord::Migration.check_pending! rescue return end 
+        begin ActiveRecord::Migration.check_pending! rescue return end
 
         klass         = self
         model_name    = model.to_s.underscore
@@ -68,7 +68,7 @@ module IntrospectiveAdmin
         }.map {|assoc,options|
           reflection       = model.reflections[assoc.to_s]
           reflection_class = reflection.class_name.constantize
-          # merge the options of the nested attribute and relationship declarations  
+          # merge the options of the nested attribute and relationship declarations
           options = options.merge(reflection_class.reflections[assoc.to_s].try(:options) || {})
           options[:class]   = reflection_class
           options[:columns] = klass.column_list(reflection_class)
@@ -78,7 +78,7 @@ module IntrospectiveAdmin
           [assoc, options]
         }]
 
-        ActiveAdmin.register model do 
+        ActiveAdmin.register model do
           instance_eval &block if block_given? # Evalutate the passed black for overrides to the defaults
 
           controller do
@@ -87,14 +87,14 @@ module IntrospectiveAdmin
             end
           end
 
-          index do 
+          index do
             selectable_column
             cols = model.columns.map(&:name)-klass.exclude_params
             cols.each_with_index do |c,i|
               reflection = model.reflections.detect {|k,v| v.foreign_key == c }
               if reflection
                 column c do |o|
-                  klass.link_record(self,o.send(reflection.first)) 
+                  klass.link_record(self,o.send(reflection.first))
                 end
               else
                 column c
@@ -103,7 +103,7 @@ module IntrospectiveAdmin
             actions
           end
 
-          show do 
+          show do
             instance = self.send(model_name)
 
             attributes_table do
@@ -112,7 +112,7 @@ module IntrospectiveAdmin
                 reflection = model.reflections.detect {|k,v| v.foreign_key == c.name }
                 if reflection
                   row c.name do |o|
-                    klass.link_record(self,instance.send(reflection.first)) 
+                    klass.link_record(self,instance.send(reflection.first))
                   end
                 else
                   row c.name
@@ -122,13 +122,13 @@ module IntrospectiveAdmin
 
               nested_config.each do |assoc,options|
                 panel assoc.capitalize do
-                  table_for instance.send(assoc) do 
+                  table_for instance.send(assoc) do
                     options[:columns].each do |c|
                       if options[:class].reflections[c]
                         column( c ) do |r|
                           klass.link_record(self,r.send(c)) if r
                         end
-                      else 
+                      else
                         column c
                       end
                     end
@@ -152,7 +152,7 @@ module IntrospectiveAdmin
           }]]
 
           form do |f|
-            f.semantic_errors *f.object.errors.keys
+            f.semantic_errors *f.object.errors.messages.keys
             f.actions
 
             klass.column_list(model, klass.include_virtual_attributes).each do |column|
@@ -166,7 +166,7 @@ module IntrospectiveAdmin
               end
             end
 
-            div { '&nbsp'.html_safe } 
+            div { '&nbsp'.html_safe }
 
             nested_config.each do |assoc,options|
               aclass  = options[:class]
@@ -176,7 +176,7 @@ module IntrospectiveAdmin
                   columns.each do |c|
                     if c == model_name || c == options[:polymorphic_reference]
                       # the join to the parent is implicit
-                    elsif klass.polymorphic?(aclass,c) 
+                    elsif klass.polymorphic?(aclass,c)
                       r.input "#{c}_assign", collection: aclass.send("#{c}_assign_options")
                     elsif aclass.reflections[c] && aclass.respond_to?("options_for_#{c}")
                       # If the class has an options_for_<column> method defined use that
@@ -184,7 +184,7 @@ module IntrospectiveAdmin
                       # e.g. UserProjectJob.options_for_job is scoped by the Project's
                       # jobs:
                       r.input c, collection: aclass.send("options_for_#{c}",f.object)
-                    else 
+                    else
                       r.input c
                     end
                   end
