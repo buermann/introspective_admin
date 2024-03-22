@@ -59,7 +59,7 @@ module IntrospectiveAdmin
 
       def register(model, &block)
         # Defining activeadmin pages will break pending migrations:
-        begin ActiveRecord::Migration.check_pending! rescue return end
+        begin ActiveRecord::Migration.check_all_pending! rescue return end
 
         klass         = self
         model_name    = model.to_s.underscore

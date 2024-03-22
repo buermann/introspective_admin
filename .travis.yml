@@ -7,37 +7,28 @@ script:
   - bundle exec rspec
 
 rvm:
-  - 2.3.0
-  - 2.4.0
-  - 2.5.0
-  - 2.6.0
-  - rbx-3.107
-  - jruby-9.0.4.0
-  - jruby-9.2.6.0
+  - 2.7.1
+  - 3.0.1
+  - 3.3.0
   - ruby-head
   - jruby-head
 
 matrix:
   allow_failures:
-    - rvm: rbx-3.107
-    - rvm: jruby-9.0.4.0
-    - rvm: jruby-9.2.6.0
     - rvm: ruby-head
     - rvm: jruby-head
 
 env:
   matrix:
-    - RAILS=4.2.0
     - RAILS=4.2.11
-    - RAILS=5.0.0
-    - RAILS=5.1.0
     - RAILS=5.2.0
+    - RAILS=7.0.8.1
     - RAILS=master
   global:
     - JRUBY_OPTS="-J-Xmx1024m --debug"
 
 notifications:
-  email: 
+  email:
     recipients:
     - buermann@gmail.com
     on_success: change

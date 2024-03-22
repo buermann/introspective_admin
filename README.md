@@ -18,7 +18,7 @@
 
 IntrospectiveAdmin is a Rails Plugin for DRYing up ActiveAdmin configurations by
 laying out simple defaults and including nested relations according to the models'
-accepts_nested_attributes_for :relation declarations. 
+accepts_nested_attributes_for :relation declarations.
 
 ## Documentation
 
@@ -28,7 +28,9 @@ In your Gemfile:
 gem 'introspective_admin'
 ```
 
-And bundle install.  In app/admin/my_admin.rb:
+And bundle install.
+
+In app/admin/my_admin.rb:
 
 ```
 class MyAdmin < IntrospectiveAdmin::Base
@@ -39,7 +41,7 @@ class MyAdmin < IntrospectiveAdmin::Base
   def self.exclude_params
     %w(fields to exclude from the admin screen)
   end
-  
+
   register MyModel do
     # It yields the ActiveAdmin DSL context back, allowing further configuration to
     # be added here, just as you would normally, to the Admin::MyModelController
@@ -48,29 +50,32 @@ class MyAdmin < IntrospectiveAdmin::Base
 end
 ```
 
-Registering MyModel will set up the index, show, and form configurations for every attribute, virtual attribute listed in MyAdmin.include_virtual_attributes (e.g. a password field for a Devise model), and nested association on the model excluding those in MyAdmin.exclude_params. It will link to associated records (if they have ActiveAdmin screens), perform eager loading of nested associations, and permit parameters for every non-excluded attribute on the model. 
+Registering MyModel will set up the index, show, and form configurations for every attribute, virtual attribute listed in MyAdmin.include_virtual_attributes (e.g. a password field for a Devise model), and nested association on the model excluding those in MyAdmin.exclude_params. It will link to associated records (if they have ActiveAdmin screens), perform eager loading of nested associations, and permit parameters for every non-excluded attribute on the model.
 
-Customizing select box options for associations is done by adding an 
+Customizing select box options for associations is done by adding an
 "options_for_X" class method on the administrated model:
 
 ```
+app/models/my_model.rb
 class MyModel < ActiveRecord::Base
   belongs_to :parent
   has_many :other_models
   accepts_nested_attributes_for :other_models, :allow_destroy => true
 
   def self.options_for_parent(instance_of_my_model)
-    Parent.order(:appelation).map.{|p| ["#{p.appelation}", p.id] } 
+    Parent.order(:appelation).map.{|p| ["#{p.appelation}", p.id] }
   end
 end
 ```
 
 IntrospectiveAdmin will detect nested polymorphic relations and attempt to handle
-them using virutal attributes that you must add to the model instance, plus a class 
+them using virutal attributes that you must add to the model instance, plus a class
 method for the select box options, using a shared delimiter string for the compound ID.
-E.g. here we use a hyphen: 
+
+E.g. here we use a hyphen:
 
 ```
+app/models/my_model.rb
 class MyModel < ActiveRecord::Base
   belongs_to :poly_model, polymorphic: true
   accepts_nested_attributes_for :poly_model, :allow_destroy => true
@@ -89,6 +94,27 @@ class MyModel < ActiveRecord::Base
 
 end
 ```
+
+ActiveAdmin relies on [Ransack](https://github.com/activerecord-hackery/ransack) to power its searches. You will need
+to explicitly declare attributes and associations to be accessible to ActiveAdmin. You can defeat the purpose by declaring everything accessible via your models' abstract base class, but be sure to exclude sensitive data:
+
+```
+app/models/application_record.rb
+def ApplicationRecord < ActiveRecord::Base
+  self.abstract_class = true
+
+  class << self
+    def ransackable_attributes(auth_object = nil)
+      @ransackable_attributes ||= column_names + _ransackers.keys - %w(password)
+    end
+
+    def ransackable_associations(auth_object = nil)
+      @ransackable_associations ||= reflect_on_all_associations.map { |a| a.name.to_s } + _ransackers.keys
+    end
+  end
+end
+```
+
 
 ## Dependencies
 

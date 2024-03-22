@@ -1,3 +1,12 @@
+
+0.9.0 3/19/2024
+===============
+
+ActiveAdmin 3+, Ruby 3+, and Rails 7+.
+
+BREAKING CHANGES:
+  - ActiveAdmin now requires Ransack declarations on registered models and their associations, c.f. the README.
+
 0.1.0 8/04/2020
 ===============
 
