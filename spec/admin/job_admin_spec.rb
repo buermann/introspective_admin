@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Admin::JobsController, :type => :controller do 
+RSpec.describe Admin::JobsController, type: :controller do
   render_views
 
   before :each do # Why can't I do this shit in a helper like I do for requests?
@@ -9,32 +11,32 @@ RSpec.describe Admin::JobsController, :type => :controller do
     allow(controller).to receive(:current_user) { user }
   end
 
-  describe "GET index" do
-    it "finds all Jobs" do
+  describe 'GET index' do
+    it 'finds all Jobs' do
       r = Job.make!
       get :index
-      response.status.should == 200 
+      response.status.should
       assigns(:jobs).include?(r).should == true
     end
   end
 
-  describe "SHOW record" do 
-    it "finds the record" do
+  describe 'SHOW record' do
+    it 'finds the record' do
       r = Job.make!
       get :show, params: { id: r.id }
-      response.status.should == 200 
+      response.status.should == 200
     end
   end
 
-  describe "NEW record" do 
-    it "renders the form for a new record" do
+  describe 'NEW record' do
+    it 'renders the form for a new record' do
       get :new
-      response.status.should == 200 
+      response.status.should == 200
     end
   end
 
-  describe "CREATE record" do 
-    it "creates the record" do
+  describe 'CREATE record' do
+    it 'creates the record' do
       r = Job.make
       post :create, params: { job: r.attributes }
       response.should redirect_to action: :show, id: Job.last.id
@@ -42,20 +44,20 @@ RSpec.describe Admin::JobsController, :type => :controller do
     end
   end
 
-  describe "EDIT record" do 
-    it "renders the edit form for an existing record" do 
+  describe 'EDIT record' do
+    it 'renders the edit form for an existing record' do
       r = Job.make!
       get :edit, params: { id: r.id }
-      response.status.should == 200 
+      response.status.should == 200
     end
   end
 
-  describe "UPDATE record" do 
-    it "updates the record" do
+  describe 'UPDATE record' do
+    it 'updates the record' do
       r = Job.make!
-      put :update, params: { id: r.id, job: { title: "New Name" }  }
+      put :update, params: { id: r.id, job: { title: 'New Name' } }
       response.should redirect_to action: :show, id: r.id
-      Job.find(r.id).title.should == "New Name"
+      Job.find(r.id).title.should == 'New Name'
     end
   end
 end

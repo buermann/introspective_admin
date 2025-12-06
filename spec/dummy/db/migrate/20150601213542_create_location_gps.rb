@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLocationGps < ActiveRecord::Migration
   def change
     create_table :location_gps do |t|

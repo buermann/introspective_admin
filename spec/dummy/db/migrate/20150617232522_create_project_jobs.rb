@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateProjectJobs < ActiveRecord::Migration
   def change
     create_table :project_jobs do |t|
@@ -6,6 +8,6 @@ class CreateProjectJobs < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :project_jobs, [:project_id,:job_id], unique: true
+    add_index :project_jobs, %i[project_id job_id], unique: true
   end
 end

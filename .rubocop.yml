@@ -1,0 +1,75 @@
+AllCops:
+  # TargetRubyVersion: 3.3.1
+  NewCops: enable
+  Exclude:
+    - 'db/**/*'
+    - 'bin/*'
+    - 'vendor/**/*'
+
+Gemspec/OrderedDependencies:
+  Enabled: false # grouping en suite gems is fine too
+
+Metrics/BlockLength:
+  CountAsOne: ['array', 'heredoc']
+  Max: 30
+  Exclude: # The DSLs expect large declarative blocks
+    - config/environments/*
+    - app/api/**/*
+    - lib/tasks/**/*.rake
+    - spec/**/*
+
+Metrics/MethodLength:
+  CountAsOne: ['array', 'heredoc']
+  Max: 30
+  Exclude:
+    - spec/**/*
+
+Metrics/ClassLength:
+  Max: 180
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/PerceivedComplexity:
+  Max: 12
+
+Metrics/CyclomaticComplexity:
+  Max: 12
+
+Layout/LineLength:
+  Enabled: false
+
+Layout/ExtraSpacing:
+  AllowForAlignment: true
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle:  table
+  EnforcedColonStyle:       table
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+
+Style/Documentation:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/OpenStructUse:
+  Exclude:
+    - spec/**/*
+
+Style/ParallelAssignment:
+  Enabled: false
+
+Style/RedundantBegin:
+  Enabled: false

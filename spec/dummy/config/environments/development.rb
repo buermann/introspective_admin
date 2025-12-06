@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -18,7 +20,7 @@ Rails.application.configure do
   config.assets.precompile += %w[active_admin.css active_admin.js]
 
   # Don't care if the mailer can't send.
-  #config.action_mailer.raise_delivery_errors = false
+  # config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

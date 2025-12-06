@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'activeadmin'
 module IntrospectiveAdmin
   autoload :Base, 'introspective_admin/base'

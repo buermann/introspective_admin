@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLocations < ActiveRecord::Migration
   def change
     create_table :locations do |t|
@@ -8,6 +10,6 @@ class CreateLocations < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :locations, [:parent_location_id,:kind,:name], unique: true
+    add_index :locations, %i[parent_location_id kind name], unique: true
   end
 end

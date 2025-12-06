@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateChatMessageUsers < ActiveRecord::Migration
   def change
     create_table :chat_message_users do |t|

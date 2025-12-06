@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TeamUser < AbstractAdapter
   belongs_to :user
   belongs_to :team
@@ -5,9 +7,8 @@ class TeamUser < AbstractAdapter
   validate :user_on_project
 
   def user_on_project
-    unless user && team && user.projects.include?(team.project)
-      errors.add(:user, "#{user.try(:name)} is not on the #{team.try(:project).try(:name)} project")
-    end
-  end
+    return if user && team && user.projects.include?(team.project)
 
+    errors.add(:user, "#{user.try(:name)} is not on the #{team.try(:project).try(:name)} project")
+  end
 end

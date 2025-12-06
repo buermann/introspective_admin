@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTeamUsers < ActiveRecord::Migration
   def change
     create_table :team_users do |t|
@@ -6,6 +8,6 @@ class CreateTeamUsers < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :team_users, [:user_id,:team_id], unique: true
+    add_index :team_users, %i[user_id team_id], unique: true
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LocationBeacon < AbstractAdapter
   belongs_to :location
   has_many :gps, through: :location
@@ -9,11 +11,9 @@ class LocationBeacon < AbstractAdapter
 
   before_validation :massage_ids
   def massage_ids
-    self.uuid        = (uuid||'').gsub(/[^0-9a-fA-F]+/,'').upcase
-    self.mac_address = (mac_address||'').gsub(/[^0-9a-fA-F]+/,'').upcase
+    self.uuid        = (uuid || '').gsub(/[^0-9a-fA-F]+/, '').upcase
+    self.mac_address = (mac_address || '').gsub(/[^0-9a-fA-F]+/, '').upcase
   end
 
-  scope :low_battery, -> { where("last_known_battery_level < 20") } 
-
-
+  scope :low_battery, -> { where('last_known_battery_level < 20') }
 end

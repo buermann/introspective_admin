@@ -1,4 +1,5 @@
+# frozen_string_literal: true
+
 class LocationAdmin < IntrospectiveAdmin::Base
-  register Location do
-  end
+  register Location
 end

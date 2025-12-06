@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddLockableToUsers < ActiveRecord::Migration
   def change
     # add Lockable columns

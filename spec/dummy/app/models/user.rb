@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class User < AbstractAdapter
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
-  scope :active,   -> { where(:locked_at => nil) }
+  scope :active,   -> { where(locked_at: nil) }
   scope :inactive, -> { where('locked_at is not null') }
 
   has_many :user_locations, dependent: :destroy
@@ -24,45 +26,47 @@ class User < AbstractAdapter
   has_many :admin_companies, through: :roles, source: :ownable, source_type: 'Company'
   has_many :admin_projects,  through: :roles, source: :ownable, source_type: 'Project'
 
-  def all_admin_projects # aggregate companies' projects with project admin roles
-    (admin_companies.map(&:projects)+admin_projects).flatten
+  # aggregate companies' projects with project admin roles
+  def all_admin_projects
+    (admin_companies.map(&:projects) + admin_projects).flatten
   end
 
   def admin?(record)
-    roles.detect{|r| r.ownable == record }.present?
+    roles.detect { |r| r.ownable == record }.present?
   end
 
-  def company_admin? # an admin of any company
-    roles.detect{|r| r.ownable_type == 'Company' }.present?
+  # an admin of any company
+  def company_admin?
+    roles.detect { |r| r.ownable_type == 'Company' }.present?
   end
 
-  def project_admin? # an admin of any project
-    company_admin? || roles.detect{|r| r.ownable_type == 'Project' }.present?
+  # an admin of any project
+  def project_admin?
+    company_admin? || roles.detect { |r| r.ownable_type == 'Project' }.present?
   end
-
 
   def set_default_password_from_project
     self.password = user_project_jobs.first.try(:project).try(:default_password) if password.blank?
   end
 
   def name
-    [first_name,last_name].delete_if(&:blank?).join(' ')
+    [first_name, last_name].delete_if(&:blank?).join(' ')
   end
 
-  def avatar_url(size='medium')
-    avatar.try(:file).try(:url,size)
+  def avatar_url(size = 'medium')
+    avatar.try(:file).try(:url, size)
   end
 
   def self.attribute_param_types
-    { "skip_confirmation_email" => Virtus::Attribute::Boolean }
+    { 'skip_confirmation_email' => Virtus::Attribute::Boolean }
   end
 
-  def skip_confirmation_email=(s)
-    return unless s.to_s == "true"
+  def skip_confirmation_email=(skip)
+    return unless skip.to_s == 'true'
+
     # skip_confirmation! does not work with update_attributes, a work-around:
-    self.update_column(:email, email) && self.reload if self.valid? && self.id
+    update_column(:email, email) && reload if valid? && id
     # devise: confirm the user without requiring a confirmation email
-    self.skip_confirmation!
+    skip_confirmation!
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPasswordToProject < ActiveRecord::Migration
   def change
     add_column :projects, :default_password, :string
