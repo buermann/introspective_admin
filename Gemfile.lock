@@ -13,7 +13,7 @@ GIT
 PATH
   remote: .
   specs:
-    introspective_admin (0.9.0)
+    introspective_admin (1.0.0)
       activeadmin
       sass
       sass-rails
